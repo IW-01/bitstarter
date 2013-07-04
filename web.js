@@ -9,7 +9,7 @@ app.get('/', function(request, response) {
   response.send(fs.readFile("index.html", function (err, data) {
   if (err) throw err;
   data.toString();
-});
+})
 );
 });
 
