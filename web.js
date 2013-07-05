@@ -14,7 +14,7 @@ app.get('/', function(request, response) {
           return response.end('Error loading index.html');
       }
       response.writeHead(200);
-      response.send(data);
+      response.end(data);
     }
   );
 });
