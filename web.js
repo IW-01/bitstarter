@@ -7,7 +7,7 @@ var fs = require('fs');
 
 
 app.get('/', function(request, response) {
-  fs.readFile('/index.html',
+  fs.readFile('index.html',
     function(err, data) {
       if (err) {
 	  response.writeHead(500);
