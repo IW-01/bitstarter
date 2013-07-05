@@ -7,11 +7,7 @@ var fs = require('fs');
 
 
 app.get('/', function(request, response) {
-  response.send(fs.readFile("index.html", function (err, data) {
-  if (err) throw err;
-  data.toString();
-})
-);
+  response.send("hello world from web.js");
 });
 
 var port = process.env.PORT || 5000;
