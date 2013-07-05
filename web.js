@@ -7,7 +7,16 @@ var fs = require('fs');
 
 
 app.get('/', function(request, response) {
-  response.send("hello world from web.js");
+  fs.readFile('/index.html',
+    function(err, data) {
+      if (err) {
+	  response.writeHead(500);
+          return response.end('Error loading index.html');
+      }
+      response.writeHead(200);
+      response.send(data);
+    }
+  );
 });
 
 var port = process.env.PORT || 5000;
