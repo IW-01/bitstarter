@@ -13,7 +13,9 @@ app.get('/', function(request, response) {
 	  response.writeHead(500);
           return response.end('Error loading index.html');
       }
-      response.writeHead(200);
+      response.writeHead(200, {
+	  'Content-Type': 'text/html'
+	  });
       response.end(data);
     }
   );
