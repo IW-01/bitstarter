@@ -41,15 +41,15 @@ var assertFileExists = function(infile) {
 
 
 var getURL = function(infile, checkfile) {
-        rest.get(infile).on('completes', function(result, checkfile) {
+        rest.get(infile).on('completes', function(result) {
 	if (result instanceof Error) {
 	    utils.puts('Error: ' + result.message);
 	    process.exit(1);
-	   } else {
-            console.log("yes mate"); 
-            doJson(result, checkfile);
+	   } 
+         console.log("yes mate"); 
+            //doJson(result, checkfile);
                    
-         }   
+   
 	});
 	
 };
@@ -95,7 +95,7 @@ if(require.main == module) {
 //    console.log(getURL(program.url));
     if (program.url) console.log("here");
     if (program.url) getURL(program.url, program.checks);
-
+    console.log("there");
 } else {
     exports.checkHtmlFile = checkHtmlFile;
 }
