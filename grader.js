@@ -39,17 +39,19 @@ var assertFileExists = function(infile) {
     return instr;
 };
 
-var getURL = function(infile) {
-    rest.get(infile).on('completes', function(result) {
+
+var getURL = function(infile, checkfile) {
+        rest.get(infile).on('completes', function(result, checkfile) {
 	if (result instanceof Error) {
 	    utils.puts('Error: ' + result.message);
 	    process.exit(1);
-	   } 
-	else {
-	    var instr = utils.puts(result);
-	    }
+	   } else {
+            console.log("yes mate"); 
+            doJson(result, checkfile);
+                   
+         }   
 	});
-	return instr;
+	
 };
 
 var cheerioHtmlFile = function(htmlfile) {
@@ -77,15 +79,23 @@ var clone = function(fn) {
     return fn.bind({});
 };
 
+var doJson = function(htmlFile, checkFile) {
+    var checkJson = checkHtmlFile(htmlFile, checkFile);
+    var outJson = JSON.stringify(checkJson, null, 4);
+    console.log(outJson);
+    }
+
 if(require.main == module) {
     program
         .option('-c, --checks <check_file>', 'Path to checks.json', clone(assertFileExists), CHECKSFILE_DEFAULT)
-        .option('-f, --file <html_file>', 'Path to index.html', clone(assertFileExists), HTMLFILE_DEFAULT)
-        .option('-u, --url <url>', 'Path to url', clone(getURL), URL_DEFAULT)  
+        .option('-f, --file <html_file>', 'Path to index.html')
+        .option('-u, --url <url>', 'Path to url')  
         .parse(process.argv);
-    var checkJson = checkHtmlFile(program.file, program.checks);
-    var outJson = JSON.stringify(checkJson, null, 4);
-    console.log(outJson);
+    if (program.file) doJson(assertFileExists(program.file), program.checks) ;
+//    console.log(getURL(program.url));
+    if (program.url) console.log("here");
+    if (program.url) getURL(program.url, program.checks);
+
 } else {
     exports.checkHtmlFile = checkHtmlFile;
 }
